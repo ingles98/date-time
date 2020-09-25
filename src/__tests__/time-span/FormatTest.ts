@@ -2,7 +2,7 @@ import Assert from "@web-atoms/unit-test/dist/Assert";
 import Category from "@web-atoms/unit-test/dist/Category";
 import Test from "@web-atoms/unit-test/dist/Test";
 import TestItem from "@web-atoms/unit-test/dist/TestItem";
-import TimeSpan from "../../TimeSpan";
+import TimeSpan from "../../types/TimeSpan";
 
 @Category("TimeSpan Format Test")
 export default class FormatTest extends TestItem {
