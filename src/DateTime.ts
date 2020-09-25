@@ -54,36 +54,36 @@ export default class DateTime {
 
     /** Day of month */
     public get day(): number {
-        return (this as any as Date).getDate();
+        return (this as any as Date).getUTCDate();
     }
 
     /** Day of week */
     public get dayOfWeek(): number {
-        return (this as any as Date).getDay();
+        return (this as any as Date).getUTCDay();
     }
 
     public get month(): number {
-        return (this as any as Date).getMonth();
+        return (this as any as Date).getUTCMonth();
     }
 
     public get year(): number {
-        return (this as any as Date).getFullYear();
+        return (this as any as Date).getUTCFullYear();
     }
 
     public get hour(): number {
-        return (this as any as Date).getHours();
+        return (this as any as Date).getUTCHours();
     }
 
     public get minute(): number {
-        return (this as any as Date).getMinutes();
+        return (this as any as Date).getUTCMinutes();
     }
 
     public get second(): number {
-        return (this as any as Date).getSeconds();
+        return (this as any as Date).getUTCSeconds();
     }
 
     public get milliSecond(): number {
-        return (this as any as Date).getMilliseconds();
+        return (this as any as Date).getUTCMilliseconds();
     }
 
     /**
@@ -105,10 +105,10 @@ export default class DateTime {
      * Strips time of the day and returns Date only
      */
     public get date(): DateTime {
-        const d = new DateTime(
-            (this as any as Date).getFullYear(),
-            (this as any as Date).getMonth(),
-            (this as any as Date).getDate(), 0, 0, 0, 0);
+        const d = new DateTime(Date.UTC(
+            (this as any as Date).getUTCFullYear(),
+            (this as any as Date).getUTCMonth(),
+            (this as any as Date).getUTCDate(), 0, 0, 0, 0));
         return d;
     }
 
@@ -126,10 +126,10 @@ export default class DateTime {
     public get time(): TimeSpan {
         return new TimeSpan(
             0,
-            (this as any as Date).getHours(),
-            (this as any as Date).getMinutes(),
-            (this as any as Date).getSeconds(),
-            (this as any as Date).getMilliseconds());
+            (this as any as Date).getUTCHours(),
+            (this as any as Date).getUTCMinutes(),
+            (this as any as Date).getUTCSeconds(),
+            (this as any as Date).getUTCMilliseconds());
     }
 
     /**
@@ -192,28 +192,28 @@ export default class DateTime {
         let rd: any;
         switch (arguments.length) {
             case 0:
-            rd = new Date() as any;
-            break;
+                rd = new Date() as any;
+                break;
             case 1:
-            rd = new Date(a) as any;
-            break;
+                rd = new Date(a) as any;
+                break;
             case 2:
-            rd = new Date(a, b) as any;
-            break;
+                rd = new Date(Date.UTC(a, b)) as any;
+                break;
             case 3:
-            rd = new Date(a, b, c) as any;
-            break;
+                rd = new Date(Date.UTC(a, b, c)) as any;
+                break;
             case 4:
-            rd = new Date(a, b, c, d) as any;
-            break;
+                rd = new Date(Date.UTC(a, b, c, d)) as any;
+                break;
             case 5:
-            rd = new Date(a, b, c, d, e) as any;
-            break;
+                rd = new Date(Date.UTC(a, b, c, d, e)) as any;
+                break;
             case 6:
-            rd = new Date(a, b, c, d, e, f) as any;
-            break;
+                rd = new Date(Date.UTC(a, b, c, d, e, f)) as any;
+                break;
             default:
-            rd = new Date(a, b, c, d, e, f, g) as any;
+                rd = new Date(Date.UTC(a, b, c, d, e, f, g)) as any;
         }
         rd.__proto__ = DateTime.prototype;
         return rd as any;
@@ -266,25 +266,25 @@ export default class DateTime {
             return n !== 0;
         }
         const d = new Date((this as any as Date).getTime());
-        if (hasValue(days, "days")) { d.setDate(d.getDate() + days); }
-        if (hasValue(hours, "hours")) { d.setHours(d.getHours() + hours); }
-        if (hasValue(minutes, "minutes")) { d.setMinutes(d.getMinutes() + minutes); }
-        if (hasValue(seconds, "seconds")) { d.setSeconds(d.getSeconds() + seconds); }
-        if (hasValue(milliseconds, "milliseconds")) { d.setMilliseconds(d.getMilliseconds() + milliseconds); }
+        if (hasValue(days, "days")) { d.setUTCDate(d.getUTCDate() + days); }
+        if (hasValue(hours, "hours")) { d.setUTCHours(d.getUTCHours() + hours); }
+        if (hasValue(minutes, "minutes")) { d.setUTCMinutes(d.getUTCMinutes() + minutes); }
+        if (hasValue(seconds, "seconds")) { d.setUTCSeconds(d.getUTCSeconds() + seconds); }
+        if (hasValue(milliseconds, "milliseconds")) { d.setUTCMilliseconds(d.getUTCMilliseconds() + milliseconds); }
         (d as any).__proto__ = DateTime.prototype;
         return d as any as DateTime;
     }
 
     public addMonths(m: number): DateTime {
         const d = new Date(this.msSinceEpoch);
-        d.setMonth(d.getMonth() + m);
+        d.setUTCMonth(d.getUTCMonth() + m);
         (d as any).__proto__ = DateTime.prototype;
         return d as any;
     }
 
     public addYears(y: number): DateTime {
         const d = new Date(this.msSinceEpoch);
-        d.setFullYear(d.getFullYear() + y);
+        d.setUTCFullYear(d.getUTCFullYear() + y);
         (d as any).__proto__ = DateTime.prototype;
         return d as any;
     }
