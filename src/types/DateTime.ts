@@ -190,6 +190,9 @@ export default class DateTime {
         // tslint:disable-next-line: no-string-literal
         this["__proto__"] = DateTime.prototype;
         let rd: any;
+        if (arguments.length >= 2 && (b < 1 || b > 12)) {
+            throw "Argument range error - second argument value should be between 1 and 12 (inclusive). [month]"
+        }
         switch (arguments.length) {
             case 0:
                 rd = new Date() as any;
@@ -198,22 +201,22 @@ export default class DateTime {
                 rd = new Date(a) as any;
                 break;
             case 2:
-                rd = new Date(Date.UTC(a, b)) as any;
+                rd = new Date(Date.UTC(a, b+1)) as any;
                 break;
             case 3:
-                rd = new Date(Date.UTC(a, b, c)) as any;
+                rd = new Date(Date.UTC(a, b+1, c)) as any;
                 break;
             case 4:
-                rd = new Date(Date.UTC(a, b, c, d)) as any;
+                rd = new Date(Date.UTC(a, b+1, c, d)) as any;
                 break;
             case 5:
-                rd = new Date(Date.UTC(a, b, c, d, e)) as any;
+                rd = new Date(Date.UTC(a, b+1, c, d, e)) as any;
                 break;
             case 6:
-                rd = new Date(Date.UTC(a, b, c, d, e, f)) as any;
+                rd = new Date(Date.UTC(a, b+1, c, d, e, f)) as any;
                 break;
             default:
-                rd = new Date(Date.UTC(a, b, c, d, e, f, g)) as any;
+                rd = new Date(Date.UTC(a, b+1, c, d, e, f, g)) as any;
         }
         rd.__proto__ = DateTime.prototype;
         return rd as any;
